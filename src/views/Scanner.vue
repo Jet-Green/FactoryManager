@@ -1,16 +1,15 @@
 <script setup>
-import { onMounted, reactive } from "vue";
+import { onMounted } from "vue";
 
 import { useScannerStore } from "../store/scanner";
-import { Html5QrcodeScanner } from "html5-qrcode";
+// import { Html5QrcodeScanner } from "html5-qrcode";
 import { Html5Qrcode } from "html5-qrcode";
 
-let decoded = reactive("jhk");
 const store = useScannerStore();
+
 onMounted(() => {
   const html5QrCode = new Html5Qrcode(/* element id */ "reader");
 
-  console.log(store.getCameraId);
   html5QrCode
     .start(
       store.getCameraId,
@@ -20,21 +19,46 @@ onMounted(() => {
       },
       (decodedText, decodedResult) => {
         store.setDecodedText(decodedText);
-        // do something when code is read
       },
-      (errorMessage) => {
-        // parse error, ignore it.
-      }
+      (errorMessage) => {}
     )
     .catch((err) => {
-      // Start failed, handle it.
+      console.log(err);
     });
 });
+
+store.$subscribe((mutation, state) => {
+  if (mutation.events.key == "decodedText" && state.decodedText !== "") {
+    store.setWasShown(true);
+  }
+});
+
+function closeDialog() {
+  store.setDecodedText("");
+  store.setWasShown(false);
+}
+
+function goTo() {
+  console.log("gooooo");
+}
 </script>
 <template>
   <div>
     <h1>scanner</h1>
     <h2>{{ store.getDecodedText }}</h2>
-    <div id="reader" width="600px"></div>
+    <h2>{{ store.getWasShown }}</h2>
+    <div id="reader" width="100%"></div>
+
+    <v-dialog v-model="store.getWasShown">
+      <v-card>
+        <v-card-text
+          >Результат: <b>{{ store.getDecodedText }}</b>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn @click="closeDialog()">close</v-btn>
+          <v-btn @click="goTo()">go</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
