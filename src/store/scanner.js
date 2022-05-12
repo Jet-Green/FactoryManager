@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia'
 
+import { Html5Qrcode } from "html5-qrcode";
+
 export const useScannerStore = defineStore('scanner', {
   state: () => {
     return {
@@ -14,8 +16,16 @@ export const useScannerStore = defineStore('scanner', {
     getWasShown: (state) => state.wasShown
   },
   actions: {
-    setCameraId(id) {
-      this.cameraId = id;
+    setCameraId() {
+      Html5Qrcode.getCameras()
+        .then((devices) => {
+          if (devices.length) {
+            this.cameraId = devices[0].id;
+          }
+        })
+        .catch((err) => {
+          // handle err
+        });
     },
     setDecodedText(text) {
       this.decodedText = text;

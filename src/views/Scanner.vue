@@ -45,8 +45,6 @@ function goTo() {
 <template>
   <div>
     <h1>scanner</h1>
-    <h2>{{ store.getDecodedText }}</h2>
-    <h2>{{ store.getWasShown }}</h2>
     <div id="reader" width="100%"></div>
 
     <v-dialog v-model="store.getWasShown">
