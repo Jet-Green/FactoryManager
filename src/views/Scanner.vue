@@ -4,6 +4,7 @@ import { onMounted } from "vue";
 import { useScannerStore } from "../store/scanner";
 // import { Html5QrcodeScanner } from "html5-qrcode";
 import { Html5Qrcode } from "html5-qrcode";
+import router from "../router/index";
 
 const store = useScannerStore();
 
@@ -39,7 +40,7 @@ function closeDialog() {
 }
 
 function goTo() {
-  console.log("gooooo");
+  router.push("/party-movement");
 }
 </script>
 <template>
