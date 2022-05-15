@@ -42,10 +42,13 @@ function closeDialog() {
 function goTo() {
   router.push("/party-movement");
 }
+function goBack() {
+  router.push("/");
+}
 </script>
 <template>
   <div>
-    <h1>scanner</h1>
+    <v-btn @click="goBack()">Вернуться</v-btn>
     <div id="reader" width="100%"></div>
 
     <v-dialog v-model="store.getWasShown">
