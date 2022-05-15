@@ -13,8 +13,17 @@ const router = createRouter({
             path: "/scanner",
             name: 'Scanner',
             component: () => import('../views/Scanner.vue')
+        },
+        {
+            path: "/party-movement",
+            name: 'PartyMovement',
+            component: () => import('../views/PartyMovement.vue')
+        },
+        {
+            path: "/info-about-order",
+            name: 'InfoAboutOrder',
+            component: () => import('../views/InfoAboutOrder.vue')
         }
-
     ]
 })
 
