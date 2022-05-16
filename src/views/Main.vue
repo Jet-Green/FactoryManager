@@ -2,8 +2,8 @@
 </script>
 
 <template>
-  <v-container class="text-center h-100 w-100 pb-10">
-    <v-row class="bordored h-25 d-flex justify-center mb-10 mt-4 align-center">
+  <v-container class="text-center h-100 w-100">
+    <v-row class="bordored h-25 d-flex justify-center mt-2 align-center">
       
       <v-col cols="4">
         <v-card >
@@ -16,7 +16,7 @@
         </v-card>
       </v-col>
     </v-row>
-    <v-row class=" bordored h-25 d-flex justify-center align-center">
+    <v-row class=" bordored d-flex justify-center align-center h-25">
       <v-col cols="4">
         <v-card>
           <v-card-content>Выполнение СЗ</v-card-content>
@@ -62,10 +62,10 @@
   font-size: 18px;
 
   @media (max-width: 768px) {
-    font-size: 11px;
+    font-size:10px;
   }
 }
-.bordored{
-  border: 4px solid #2e0ffa;
-}
+// .bordored{
+//   border: 4px solid #2e0ffa;
+// }
 </style>
