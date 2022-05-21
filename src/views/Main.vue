@@ -6,10 +6,14 @@
     <div class="h-50">
       <v-row class="bordored d-flex justify-center mt-2 align-center">
         <v-col cols="6">
-          <v-card class="mx-auto">
+          <v-card>
             <v-img
-              src="../Icons/settings.png"
+              src="../assets/Icons/settings.png"
+              alt="Фотография"
+              height="100"
+              width="100"
             ></v-img>
+            
           </v-card>
         </v-col>
         <v-col cols="6">
