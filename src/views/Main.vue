@@ -4,70 +4,94 @@
 <template>
   <v-container class="text-center h-100 w-100" no-gutters>
     <div class="h-50">
-      <v-row class="bordored d-flex justify-center mt-2 align-center">
-        <v-col cols="6">
-          <v-card>
-            <v-img
-              src="../assets/Icons/settings.png"
-              alt="Фотография"
-              height="100"
-              width="100"
-            ></v-img>
-            
+      <v-row class="bordored d-flex justify-center mt-2 align-center mb-6">
+        <v-col cols="4">
+          <v-card class="pa-4">
+            <v-badge color="red" content="4"
+              ><img src="../assets/Icons/settings.png" alt="photo" height="50"
+            /></v-badge>
           </v-card>
         </v-col>
-        <v-col cols="6">
-          <v-card>
-            <v-card-content>Остановленные партии</v-card-content>
+        <v-col cols="4">
+          <v-card class="pa-4">
+            <v-badge color="red" content="22"
+              ><img
+                src="../assets/Icons/search-alt.png"
+                alt="photo"
+                height="50"
+            /></v-badge>
           </v-card>
         </v-col>
       </v-row>
 
       <v-row class="bordored d-flex justify-center align-center">
         <v-col cols="4">
-          <v-card>
-            <v-card-content>Выполнение СЗ</v-card-content>
+          <v-card class="pa-4">
+            <v-badge color="yellow" content="57%"
+              ><img
+                src="../assets/Icons/list-check.png"
+                alt="photo"
+                height="50"
+            /></v-badge>
           </v-card>
         </v-col>
         <v-col cols="4">
-          <v-card>
-            <v-card-content>Выполнение РЦ</v-card-content>
+          <v-card class="pa-4">
+            <v-badge color="yellow" content="67%"
+              ><img
+                src="../assets/Icons/chart-histogram.png"
+                alt="photo"
+                height="50"
+            /></v-badge>
           </v-card>
         </v-col>
         <v-col cols="4">
-          <v-card>
-            <v-card-content>Выработка</v-card-content>
+          <v-card class="pa-4">
+            <v-badge color="yellow" content="72%"
+              ><img
+                src="../assets/Icons/time-check.png"
+                alt="photo"
+                height="50"
+            /></v-badge>
           </v-card>
         </v-col>
         <v-col cols="4">
-          <v-card>
-            <v-card-content>Выполнение плана</v-card-content>
+          <v-card class="pa-4">
+            <v-badge color="green" content="85%">
+              <img src="../assets/Icons/time-fast.png" alt="photo" height="50"
+            /></v-badge>
           </v-card>
         </v-col>
         <v-col cols="4">
-          <v-card>
-            <v-card-content>Точно в срок</v-card-content>
+          <v-card class="pa-4">
+            <v-badge color="green" content="98%">
+              <img
+                src="../assets/Icons/calendar-check.png"
+                alt="photo"
+                height="50"
+            /></v-badge>
           </v-card>
         </v-col>
       </v-row>
     </div>
     <v-row class="d-flex justify-center align-end h-50" dense>
       <v-col cols="6">
-        <v-card>
-          <v-card-content>Движение партий</v-card-content>
+        <v-card class="pa-4">
+          <img src="../assets/Icons/map-marker.png" alt="photo" height="50" />
         </v-card>
       </v-col>
       <v-col cols="6">
-        <v-card
-          ><v-card-content
-            ><h4>
-              <router-link to="/scanner">QR</router-link>
-            </h4></v-card-content
-          ></v-card
-        >
+        <v-card class="pa-4">
+          <router-link to="/scanner"
+            ><img src="../assets/Icons/transform.png" alt="photo" height="50"
+          /></router-link>
+        </v-card>
       </v-col>
     </v-row>
   </v-container>
 </template>
 <style  lang="scss" scoped>
+.bordored {
+  border: 4px solid #3369a3;
+}
 </style>
