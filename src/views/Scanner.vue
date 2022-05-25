@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, ref, onMounted, watch } from "vue";
+import { onMounted, watch, ref } from "vue";
 
 import { useScannerStore } from "../store/scanner";
 // import { Html5QrcodeScanner } from "html5-qrcode";
@@ -8,31 +8,23 @@ import { useRouter } from "vue-router";
 
 const store = useScannerStore();
 const router = useRouter();
-let cameras = reactive([]);
-let camerasInObjs = [];
 
-let selectedCamera = ref("");
+let decoded = ref("");
 
 onMounted(() => {
   const html5QrCode = new Html5Qrcode(/* element id */ "reader");
-  for (let c of store.getCameras) {
-    cameras.push(c.label);
 
-    camerasInObjs.push({
-      name: c.label,
-      id: c.id,
-    });
-  }
   html5QrCode
     .start(
-      store.getCameraId,
+      { facingMode: "environment" },
       {
         fps: 14, // Optional, frame per seconds for qr code scanning
         qrbox: { width: 250, height: 250 },
-        aspectRatio: 5 / 11,
+        aspectRatio: 0.6,
       },
       (decodedText, decodedResult) => {
         store.setDecodedText(decodedText);
+        decoded.value = decodedText;
       },
       (errorMessage) => {}
     )
@@ -41,38 +33,54 @@ onMounted(() => {
     });
 });
 
-store.$subscribe((mutation, state) => {
-  if (mutation.events.key == "decodedText" && state.decodedText !== "") {
-    store.setWasShown(true);
-  }
+watch(decoded, (newVal) => {
+  store.setWasShown(true);
+  decoded = "";
 });
 
-watch(selectedCamera, (newVal) => {
-  console.log(newVal);
-  const html5QrCode = new Html5Qrcode(/* element id */ "reader");
-  let id = null;
-  for (let c of camerasInObjs) {
-    if (c.name == newVal) {
-      id = c.id;
-    }
-  }
-  html5QrCode
-    .start(
-      id,
-      {
-        fps: 14, // Optional, frame per seconds for qr code scanning
-        qrbox: { width: 250, height: 250 },
-        aspectRatio: 5 / 11,
-      },
-      (decodedText, decodedResult) => {
-        store.setDecodedText(decodedText);
-      },
-      (errorMessage) => {}
-    )
-    .catch((err) => {
-      console.log(err);
-    });
-});
+// store.$subscribe((mutation, state) => {
+//   console.log(mutation);
+//   if (mutation.events.key == "decodedText" && state.decodedText !== "") {
+//     store.setWasShown(true);
+//   }
+// });
+
+// watch(selectedCamera, (newVal) => {
+//   html5QrCode.stop();
+//   console.log(newVal);
+
+//   let oldReader = document.getElementById("reader");
+//   oldReader.remove();
+
+//   let container = document.getElementById("video-container");
+//   let newReader = document.createElement("div");
+//   newReader.setAttribute("id", "reader");
+//   container.appendChild(newReader);
+
+//   const html5QrCode = new Html5Qrcode(/* element id */ "reader");
+//   let id = null;
+//   for (let c of camerasInObjs) {
+//     if (c.name == newVal) {
+//       id = c.id;
+//     }
+//   }
+//   html5QrCode
+//     .start(
+//       { facingMode: "environment" },
+//       {
+//         fps: 14, // Optional, frame per seconds for qr code scanning
+//         qrbox: { width: 250, height: 250 },
+//         aspectRatio: 1 / 2,
+//       },
+//       (decodedText, decodedResult) => {
+//         store.setDecodedText(decodedText);
+//       },
+//       (errorMessage) => {}
+//     )
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// });
 
 function closeDialog() {
   store.setDecodedText("");
@@ -93,7 +101,7 @@ function goBack() {
     style="height: 100%"
     class="d-flex align-center justify-center flex-column"
   >
-    <v-autocomplete
+    <!-- <v-autocomplete
       v-if="store.cameras.length"
       v-model="selectedCamera"
       :items="cameras"
@@ -101,8 +109,10 @@ function goBack() {
       dense
       label="Выберите камеру"
       class="w-100"
-    ></v-autocomplete>
-    <div id="reader" class="d-flex justify-center"></div>
+    ></v-autocomplete> -->
+    <div id="video-container">
+      <div id="reader" class=""></div>
+    </div>
   </v-sheet>
 
   <v-dialog v-model="store.getWasShown">
