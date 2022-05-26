@@ -49,12 +49,6 @@ function goBack() {
 }
 </script>
 <template>
-  <v-btn
-    @click="goBack()"
-    icon="mdi-arrow-left"
-    size="small"
-    class="mb-2"
-  ></v-btn>
   <!-- <v-autocomplete
       v-if="store.cameras.length"
       v-model="selectedCamera"
@@ -64,7 +58,15 @@ function goBack() {
       label="Выберите камеру"
       class="w-100"
     ></v-autocomplete> -->
-  <div id="reader" height="100%"></div>
+  <div style="height: 100%; background-color: grey">
+    <v-btn
+      @click="goBack()"
+      icon="mdi-arrow-left"
+      size="x-small"
+      class="ma-2"
+    ></v-btn>
+    <div id="reader" height="100%"></div>
+  </div>
 
   <v-dialog v-model="store.getWasShown">
     <v-card>

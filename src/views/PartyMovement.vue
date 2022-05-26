@@ -58,8 +58,8 @@ function goBack() {
   <v-btn
     @click="goBack()"
     icon="mdi-arrow-left"
-    size="small"
-    class="mb-2"
+    size="x-small"
+    class="ma-2"
   ></v-btn>
   <v-table density="compact">
     <thead>
