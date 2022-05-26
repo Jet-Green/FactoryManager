@@ -9,8 +9,6 @@ import { useRouter } from "vue-router";
 const store = useScannerStore();
 const router = useRouter();
 
-let decoded = ref("");
-
 onMounted(() => {
   const html5QrCode = new Html5Qrcode(/* element id */ "reader");
 
@@ -24,7 +22,6 @@ onMounted(() => {
       },
       (decodedText, decodedResult) => {
         store.setDecodedText(decodedText);
-        decoded.value = decodedText;
       },
       (errorMessage) => {}
     )
@@ -33,9 +30,10 @@ onMounted(() => {
     });
 });
 
-watch(decoded, (newVal) => {
-  store.setWasShown(true);
-  decoded = "";
+store.$onAction(({ name, store }) => {
+  if (name === "setDecodedText" && store.decodedText != "") {
+    store.setWasShown(true);
+  }
 });
 
 // store.$subscribe((mutation, state) => {
@@ -89,6 +87,7 @@ function closeDialog() {
 
 function goTo() {
   router.push("/party-movement");
+  store.setWasShown(false);
 }
 function goBack() {
   router.push("/");
@@ -96,12 +95,12 @@ function goBack() {
 </script>
 <template>
   <v-btn @click="goBack()">Вернуться</v-btn>
-  <v-sheet
+  <!-- <v-sheet
     color="grey lighten-4"
     style="height: 100%"
     class="d-flex align-center justify-center flex-column"
-  >
-    <!-- <v-autocomplete
+  > -->
+  <!-- <v-autocomplete
       v-if="store.cameras.length"
       v-model="selectedCamera"
       :items="cameras"
@@ -110,10 +109,8 @@ function goBack() {
       label="Выберите камеру"
       class="w-100"
     ></v-autocomplete> -->
-    <div id="video-container">
-      <div id="reader" class=""></div>
-    </div>
-  </v-sheet>
+  <div id="reader" height="100%"></div>
+  <!-- </v-sheet> -->
 
   <v-dialog v-model="store.getWasShown">
     <v-card>
