@@ -1,8 +1,7 @@
 <script setup>
-import { onMounted, watch, ref } from "vue";
+import { onMounted } from "vue";
 
 import { useScannerStore } from "../store/scanner";
-// import { Html5QrcodeScanner } from "html5-qrcode";
 import { Html5Qrcode } from "html5-qrcode";
 import { useRouter } from "vue-router";
 
@@ -36,50 +35,6 @@ store.$onAction(({ name, store }) => {
   }
 });
 
-// store.$subscribe((mutation, state) => {
-//   console.log(mutation);
-//   if (mutation.events.key == "decodedText" && state.decodedText !== "") {
-//     store.setWasShown(true);
-//   }
-// });
-
-// watch(selectedCamera, (newVal) => {
-//   html5QrCode.stop();
-//   console.log(newVal);
-
-//   let oldReader = document.getElementById("reader");
-//   oldReader.remove();
-
-//   let container = document.getElementById("video-container");
-//   let newReader = document.createElement("div");
-//   newReader.setAttribute("id", "reader");
-//   container.appendChild(newReader);
-
-//   const html5QrCode = new Html5Qrcode(/* element id */ "reader");
-//   let id = null;
-//   for (let c of camerasInObjs) {
-//     if (c.name == newVal) {
-//       id = c.id;
-//     }
-//   }
-//   html5QrCode
-//     .start(
-//       { facingMode: "environment" },
-//       {
-//         fps: 14, // Optional, frame per seconds for qr code scanning
-//         qrbox: { width: 250, height: 250 },
-//         aspectRatio: 1 / 2,
-//       },
-//       (decodedText, decodedResult) => {
-//         store.setDecodedText(decodedText);
-//       },
-//       (errorMessage) => {}
-//     )
-//     .catch((err) => {
-//       console.log(err);
-//     });
-// });
-
 function closeDialog() {
   store.setDecodedText("");
   store.setWasShown(false);
@@ -94,12 +49,12 @@ function goBack() {
 }
 </script>
 <template>
-  <v-btn @click="goBack()">Вернуться</v-btn>
-  <!-- <v-sheet
-    color="grey lighten-4"
-    style="height: 100%"
-    class="d-flex align-center justify-center flex-column"
-  > -->
+  <v-btn
+    @click="goBack()"
+    icon="mdi-arrow-left"
+    size="small"
+    class="mb-2"
+  ></v-btn>
   <!-- <v-autocomplete
       v-if="store.cameras.length"
       v-model="selectedCamera"
@@ -110,7 +65,6 @@ function goBack() {
       class="w-100"
     ></v-autocomplete> -->
   <div id="reader" height="100%"></div>
-  <!-- </v-sheet> -->
 
   <v-dialog v-model="store.getWasShown">
     <v-card>
