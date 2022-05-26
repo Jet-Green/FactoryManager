@@ -4,7 +4,7 @@
 <template>
   <v-container class="text-center h-100 w-100" no-gutters>
     <div class="h-75">
-      <v-row class="bordored d-flex justify-center mt-2 align-center mb-8 h-25">
+      <v-row class="bordored d-flex justify-center mt-2 align-center mb-8 pa-4">
         <v-col cols="4">
           <v-card class="pa-4">
             <v-badge color="red" content="4"
@@ -24,7 +24,7 @@
         </v-col>
       </v-row>
 
-      <v-row class="bordored d-flex justify-center align-center h-50 ">
+      <v-row class="bordored d-flex justify-center align-center pa-4 ">
         <v-col cols="4">
           <v-card class="pa-4">
             <v-badge color="yellow" content="57%"
