@@ -1,7 +1,7 @@
 <script setup>
 import { reactive } from "vue";
 
-import router from '../router'
+import router from "../router";
 
 const desserts = reactive([
   {
@@ -51,11 +51,16 @@ function goTo(item) {
 }
 
 function goBack() {
-  router.push('/scanner')
+  router.push("/scanner");
 }
 </script>
 <template>
-  <v-btn @click="goBack()">Вернуться</v-btn>
+  <v-btn
+    @click="goBack()"
+    icon="mdi-arrow-left"
+    size="x-small"
+    class="ma-2"
+  ></v-btn>
   <v-table density="compact">
     <thead>
       <tr>
