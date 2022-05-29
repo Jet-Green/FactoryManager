@@ -41,7 +41,7 @@ function closeDialog() {
 }
 
 function goTo() {
-  router.push("/party-movement");
+  router.push("/info-about-order");
   store.setWasShown(false);
 }
 function goBack() {
