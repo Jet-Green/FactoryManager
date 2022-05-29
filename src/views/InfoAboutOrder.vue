@@ -1,14 +1,17 @@
 <script setup>
-import { reactive } from "vue";
+import { useRouter } from "vue-router";
 
-import router from "../router";
+const router = useRouter();
+
+function goBack() {
+  router.push("/scanner");
+}
 </script>
 <template>
- <v-btn
+  <v-btn
     @click="goBack()"
     icon="mdi-arrow-left"
     size="x-small"
     class="ma-2"
   ></v-btn>
-
 </template>

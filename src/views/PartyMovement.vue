@@ -1,7 +1,8 @@
 <script setup>
 import { reactive } from "vue";
 
-import router from "../router";
+import { useRouter } from "vue-router";
+const router = useRouter();
 
 const desserts = reactive([
   {
