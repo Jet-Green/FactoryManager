@@ -41,8 +41,9 @@ function closeDialog() {
 }
 
 function goTo() {
-  router.push("/info-about-order");
+  router.push({name: 'InfoAboutOrder', params: { data: this.store.getDecodedText } })
   store.setWasShown(false);
+ 
 }
 function goBack() {
   router.push("/");
