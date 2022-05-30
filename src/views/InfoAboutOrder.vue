@@ -7,30 +7,14 @@ import data from "../db/orderOperations";
 const router = useRouter();
 const props = defineProps(["data"], { data: String });
 
-const headers = reactive([
-  {
-    text: "Наименование ОП",
-    align: "start",
-    sortable: false,
-    value: "operation.designation",
-  },
-  {
-    text: "Состояние",
-    align: "start",
-    sortable: false,
-    value: "operation.act.status.text",
-  },
-]);
-
 const orderInfo = reactive([]);
 
 onMounted(() => {
-  console.log(data);
   let cur = null;
   for (let i = 0; i < data.length; i++) {
     cur = {
-      "operation.designation": data[i]["operation.designation"],
-      "operation.act.status.text": data[i]["operation.act.status.text"],
+      "operation.designation": data[i].obj["operation.designation"],
+      "operation.act.status.text": data[i].obj["operation.act.status.text"],
     };
     orderInfo.push(cur);
   }
@@ -56,11 +40,20 @@ function goBack() {
   </v-row>
   <v-row>
     <v-col>
-      <v-data-table
-        :headers="headers"
-        :items="orderInfo"
-        density="compact"
-      ></v-data-table>
+      <v-table>
+        <thead>
+          <tr>
+            <th>Наименование ОП</th>
+            <th>Состояние</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(item, i) in orderInfo" :key="i">
+            <td>{{ item["operation.designation"] }}</td>
+            <td>{{ item["operation.act.status.text"] }}</td>
+          </tr>
+        </tbody>
+      </v-table>
     </v-col>
   </v-row>
   {{ this.props.data }}
