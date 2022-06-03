@@ -21,7 +21,7 @@ onMounted(() => {
 });
 
 function goBack() {
-  router.push({ name: "Main" });
+  router.push({ name: "Scanner" });
 }
 </script>
 <template>
@@ -55,8 +55,10 @@ function goBack() {
         </tbody>
       </v-table>
     </v-col>
+    <v-col>
+      {{ this.props.data }}
+    </v-col>
   </v-row>
-  {{ this.props.data }}
 </template>
 <style scoped>
 .status {
