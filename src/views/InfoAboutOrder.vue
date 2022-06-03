@@ -56,7 +56,7 @@ function goBack() {
       </v-table>
     </v-col>
     <v-col>
-      {{ this.props.data }}
+      {{ props.data }}
     </v-col>
   </v-row>
 </template>
