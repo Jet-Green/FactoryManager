@@ -4,16 +4,16 @@ const data = [
         "__type": "U_Orders.operationList",
         "obj": {
             "operation.act.yield.tertiary": 0.000000,
-            "operation.designation": "Контроль входной ф109х26мм",
-            "operation.operation": "0005",
-            "operation.act.status.color": 32768,
-            "operation.act.status.text": "Завершена",
+            "operation.designation": "Контроль входной ф109х26мм", // +
+            "operation.operation": "0005", // +
+            "operation.act.status.color": 32768, // +
+            "operation.act.status.text": "Завершена", // +
             "operation.act.predecessor_status": "E",
-            "operation.person_end": "Данилова С. В.",
-            "operation.plan.yield.primary": 23.000000,
+            "operation.person_end": "Данилова С. В.", // +
+            "operation.plan.yield.primary": 23.000000, // +
             "operation.userfield66": null,
             "operation.has_inspection": false,
-            "operation.act.last_logoff_ts": "2020-01-16T23:23:26+04:00",
+            "operation.act.last_logoff_ts": "2020-01-16T23:23:26+04:00", // + (когда была завершена)
             "operation.number_of_splits": null,
             "operation.modified_by": "SVDanilova",
             "operation.act.scrap.secondary": 0.000000,
@@ -21,8 +21,8 @@ const data = [
             "operation.act.scrap.tertiary": 0.000000,
             "operation.act.total_duration": 1,
             "operation.is_replaceable": false,
-            "order.salesorder": "5182-19-1-2",
-            "operation.id": "P80-0120-00B0000005",
+            "order.salesorder": "5182-19-1-2", // номер партии
+            "operation.id": "P80-0120-00B0000005", // полный номер операции 
             "order.id": "P80-0120-00B",
             "operation.plan.total_duration": 0,
             "operation.person_control": "",
@@ -36,22 +36,22 @@ const data = [
             "order.route": "AR80-0000323",
             "operation.ls_safo_nr": null,
             "operation.splitting_authorization": "N",
-            "operation.act.workplace": "STOL_108",
+            "operation.act.workplace": "STOL_108", // +
             "operation.plan.yield.secondary": 230.000000,
             "operation.act.first_logon_ts": "2020-01-16T23:23:25+04:00",
             "operation.active": true,
             "operation.act.yield.primary": 23.000000,
             "operation.userfield01": null,
-            "operation.person_start": "Данилова С. В.",
+            "operation.person_start": "Данилова С. В.", // +
             "operation.act.workplace_default": "STOL_108",
             "operation.record_num": 1,
             "operation.max_number_of_split": 0,
-            "operation.act.scrap.primary": 0.000000,
-            "operation.sequence": "000",
+            "operation.act.scrap.primary": 0.000000, // + если есть (брак)
+            "operation.sequence": "000", // последовательность операций
             "inspectionstep.number": 0,
             "operation.act.status.textnumber": 50,
             "operation.workplace_group": "STOL_MTZ",
-            "operation.status_color": "#008700",
+            "operation.status_color": "#008700", // +
             "operation.act.rework.primary": 0.000000,
             "operation.act.status": "E"
         }
