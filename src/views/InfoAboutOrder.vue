@@ -2,12 +2,74 @@
 import { onMounted, reactive } from "vue";
 import { useRouter } from "vue-router";
 
+import VueTree from "@ssthouse/vue3-tree-chart";
+import "@ssthouse/vue3-tree-chart/dist/vue3-tree-chart.css";
+
 import data from "../db/orderOperations";
 
 const router = useRouter();
 const props = defineProps(["data"], { data: String });
 
 const orderInfo = reactive([]);
+
+const sampleData = reactive({
+  name: "Wheels",
+  status:"InProg",
+  children: [
+    {
+      name: "Wings",
+      status:"InProg",
+      children: [
+        {
+          name: "Plane",
+          status:"InProg",
+        },
+      ],
+    },
+    {
+      name: "Piston",
+      status:"InProg",
+      customID: 3,
+    },
+    {
+      name: "Carburetor",
+      status:"InProg",
+      children: [
+        {
+          name: "Truck",
+          status:"InProg",
+          customID: 2,
+        },
+        {
+          name: "Car",
+          status:"InProg",
+          customID: 2,
+        },
+      ],
+    },
+    {
+      name: "Valve",
+      status:"InProg",
+      customID: 4,
+    },
+    {
+      name: "Crankshaft",
+      status:"InProg",
+      customID: 1,
+    },
+  ],
+  links: [
+    { parent: 1, child: 2 },
+    { parent: 3, child: 2 },
+    { parent: 4, child: 2 },
+  ],
+  identifier: "customID",
+});
+const treeConfig = reactive({
+  nodeWidth: 120,
+  nodeHeight: 80,
+  levelHeight: 200,
+});
 
 onMounted(() => {
   let cur = null;
@@ -59,6 +121,24 @@ function goBack() {
       {{ props.data }}
     </v-col>
   </v-row>
+  <div>
+    <vue-tree
+      style="width: 800px; height: 600px; border: 1px solid gray"
+      :dataset="sampleData"
+      :config="treeConfig"
+      linkStyle="straight"
+    >
+      <template v-slot:node="{ node, collapsed }">
+        <div
+          class="rich-media-node"
+          :style="{ border: collapsed ? '2px solid grey' : '' }"
+        >
+         <span style="padding: 4px 0; font-weight: bold">{{ node.status }}</span>
+          <span style="padding: 4px 0; font-weight: bold">{{ node.name }}</span>
+        </div>
+      </template>
+    </vue-tree>
+  </div>
 </template>
 <style scoped>
 .status {
