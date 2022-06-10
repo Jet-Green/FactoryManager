@@ -96,7 +96,7 @@ function goBack() {
         class="ma-2"
       ></v-btn>
     </v-col>
-    <v-col class="d-flex align-center justify-end">
+    <!-- <v-col class="d-flex align-center justify-end">
       <v-text>Заказ в работе</v-text>
     </v-col>
   </v-row>
@@ -119,9 +119,10 @@ function goBack() {
     </v-col>
     <v-col>
       {{ props.data }}
-    </v-col>
+    </v-col> -->
   </v-row>
-  <div>
+  <v-row>
+  <v-col>
     <vue-tree
       style="width: 800px; height: 600px; border: 1px solid gray"
       :dataset="sampleData"
@@ -138,7 +139,8 @@ function goBack() {
         </div>
       </template>
     </vue-tree>
-  </div>
+  </v-col>
+  </v-row>
 </template>
 <style scoped>
 .status {
