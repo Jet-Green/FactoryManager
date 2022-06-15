@@ -77,7 +77,7 @@ function goBack() {
   </div> -->
   <v-btn @click="tree.zoomIn()">+</v-btn>
   <v-btn @click="tree.zoomOut()">-</v-btn>
-  <vue-tree style="height: 80vh; width: 100%; border: 1px solid gray" :dataset="orderInfoTree" :config="treeConfig"
+  <vue-tree style="height: 200vh; width: 100%; border: 1px solid gray" :dataset="orderInfoTree" :config="treeConfig"
     ref="tree" linkStyle="straight">
     <template v-slot:node="{ node, collapsed }">
       <div class="rich-media-node" :style="{ border: collapsed ? '2px solid grey' : '' }">
