@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, reactive, ref } from "vue";
 import { useRouter } from "vue-router";
+import axios from 'axios'
 
 import VueTree from "@ssthouse/vue3-tree-chart";
 import "@ssthouse/vue3-tree-chart/dist/vue3-tree-chart.css";
@@ -48,6 +49,8 @@ const listToTree = (arr) => {
 };
 
 onMounted(() => {
+  // axios.get()
+
   let cur;
   for (let i = 0; i < data.length; i++) {
     cur = {
