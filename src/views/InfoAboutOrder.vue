@@ -15,9 +15,9 @@ const orderNumber = props.data
 
 let tree = ref(null)
 const treeConfig = reactive({
-  nodeWidth: 70,
-  nodeHeight: 60,
-  levelHeight: 150,
+  nodeWidth: 170,
+  nodeHeight: 170,
+  levelHeight: 170,
 });
 
 let orderInfo = []
@@ -57,6 +57,7 @@ onMounted(() => {
       "operation.designation": data[i].obj["operation.designation"],
       "operation.act.status.text": data[i].obj["operation.act.status.text"],
       "operation.operation": data[i].obj["operation.operation"],
+      "operation.person_end": data[i].obj['operation.person_end'],
       id: i + 1,
       children: null,
       parentId: i
@@ -87,7 +88,17 @@ function goBack() {
     ref="tree" linkStyle="straight">
     <template v-slot:node="{ node, collapsed }">
       <div class="rich-media-node" :style="{ border: collapsed ? '2px solid grey' : '' }">
-        <span style="padding: 4px 0; font-weight: bold;">{{ node['operation.designation'] }}</span>
+        <div>
+          <span style="font-weight: bold;">{{ node['operation.designation'] }}</span>
+        </div>
+        <div style="display: flex; flex-direction: column; background-color: #327da8; color: white; padding: 8px">
+          <div>
+            Статус: <b>{{ node['operation.act.status.text'] }}</b>
+          </div>
+          <div>
+            <b>{{ node["operation.person_end"] }}</b>
+          </div>
+        </div>
       </div>
     </template>
   </vue-tree>
