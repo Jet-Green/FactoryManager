@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 
 import { useScannerStore } from "../store/scanner";
 import { Html5Qrcode } from "html5-qrcode";
@@ -7,6 +7,8 @@ import { useRouter } from "vue-router";
 
 const store = useScannerStore();
 const router = useRouter();
+
+let orderNumber = ref('')
 
 onMounted(() => {
   const html5QrCode = new Html5Qrcode(/* element id */ "reader");
@@ -21,8 +23,15 @@ onMounted(() => {
       },
       (decodedText, decodedResult) => {
         store.setDecodedText(decodedText);
+        let newVersion = /[a-z]{1}\d{2}-\d{4}-.{3}/i
+        let oldVersion = /[a-z]{1}-\d{2}-\d{2}-.{4}/i
+        let oldVersionMatchedOrder = decodedText.match(oldVersion)
+        let newVersionMatchedOrder = decodedText.match(newVersion)
+
+        orderNumber = oldVersionMatchedOrder ? oldVersionMatchedOrder[0] : newVersionMatchedOrder[0]
+        console.log(orderNumber);
       },
-      (errorMessage) => {}
+      (errorMessage) => { }
     )
     .catch((err) => {
       console.log(err);
@@ -43,7 +52,7 @@ function closeDialog() {
 function goTo() {
   router.push({
     name: "InfoAboutOrder",
-    params: { data: store.getDecodedText },
+    params: { data: orderNumber },
   });
   store.setWasShown(false);
 }
@@ -52,33 +61,18 @@ function goBack() {
 }
 </script>
 <template>
-  <!-- <v-autocomplete
-      v-if="store.cameras.length"
-      v-model="selectedCamera"
-      :items="cameras"
-      outlined
-      dense
-      label="Выберите камеру"
-      class="w-100"
-    ></v-autocomplete> -->
   <div style="height: 100%; background-color: grey">
-    <v-btn
-      @click="goBack()"
-      icon="mdi-arrow-left"
-      size="x-small"
-      class="ma-2"
-    ></v-btn>
+    <v-btn @click="goBack()" icon="mdi-arrow-left" size="x-small" class="ma-2"></v-btn>
     <div id="reader" height="100%"></div>
   </div>
 
   <v-dialog v-model="store.getWasShown">
     <v-card>
-      <v-card-text
-        >Результат: <b>{{ store.getDecodedText }}</b>
+      <v-card-text>Результат: <b>{{ store.getDecodedText }}</b>
       </v-card-text>
       <v-card-actions>
-        <v-btn @click="closeDialog()">close</v-btn>
-        <v-btn @click="goTo()">go</v-btn>
+        <v-btn @click="closeDialog()">закрыть</v-btn>
+        <v-btn @click="goTo()">перейти</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

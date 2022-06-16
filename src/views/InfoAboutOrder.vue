@@ -10,6 +10,7 @@ import data from "../db/orderOperations";
 const router = useRouter();
 const props = defineProps(["data"], { data: String });
 
+const orderNumber = props.data
 
 let tree = ref(null)
 const treeConfig = reactive({
@@ -61,7 +62,6 @@ onMounted(() => {
   }
 
   orderInfoTree.value = listToTree(orderInfo)
-  console.log(tree);
 });
 
 function goBack() {
@@ -71,12 +71,15 @@ function goBack() {
 <template>
   <div class="status">
     <v-btn @click="goBack()" icon="mdi-arrow-left" size="x-small" class="ma-2"></v-btn>
+    <span style="color: white">
+      Заказ {{ orderNumber }}
+    </span>
   </div>
   <!-- <div>
     {{ orderInfoTree }}
   </div> -->
-  <v-btn @click="tree.zoomIn()">+</v-btn>
-  <v-btn @click="tree.zoomOut()">-</v-btn>
+  <v-btn @click="tree.zoomIn()" class="ma-2">+</v-btn>
+  <v-btn @click="tree.zoomOut()" class="ma-2">-</v-btn>
   <vue-tree style="height: 200vh; width: 100%; border: 1px solid gray" :dataset="orderInfoTree" :config="treeConfig"
     ref="tree" linkStyle="straight">
     <template v-slot:node="{ node, collapsed }">
