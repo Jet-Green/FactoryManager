@@ -20,6 +20,9 @@ const treeConfig = reactive({
   levelHeight: 170,
 });
 
+let operationInfoDialog = ref(false)
+let operationInfo = ref({})
+
 let orderInfo = []
 let orderInfoTree = ref({
   "operation.designation": null,
@@ -47,6 +50,11 @@ const listToTree = (arr) => {
   };
   return res;
 };
+
+function openOperationInfoDialog(data) {
+  operationInfo.value = data
+  operationInfoDialog.value = true
+}
 
 onMounted(() => {
   // axios.get()
@@ -84,12 +92,15 @@ function goBack() {
   </div> -->
   <v-btn @click="tree.zoomIn()" class="ma-2">+</v-btn>
   <v-btn @click="tree.zoomOut()" class="ma-2">-</v-btn>
-  <vue-tree style="height: 200vh; width: 100%; border: 1px solid gray" :dataset="orderInfoTree" :config="treeConfig"
-    ref="tree" linkStyle="straight">
-    <template v-slot:node="{ node, collapsed }">
-      <div class="rich-media-node" :style="{ border: collapsed ? '2px solid grey' : '' }">
+  <vue-tree style="height: 230vh; width: 100%; border: 1px solid gray" :dataset="orderInfoTree" :config="treeConfig"
+    ref="tree" linkStyle="straight" :collapse-enabled="false">
+    <template v-slot:node="{ node }">
+      <div class="rich-media-node" @click="openOperationInfoDialog(node)">
         <div>
           <span style="font-weight: bold;">{{ node['operation.designation'] }}</span>
+        </div>
+        <div class="d-flex justify-center" style="background-color:#0b9c47">
+          {{ node['operation.operation'] }}
         </div>
         <div style="display: flex; flex-direction: column; background-color: #327da8; color: white; padding: 8px">
           <div>
@@ -102,6 +113,16 @@ function goBack() {
       </div>
     </template>
   </vue-tree>
+  <v-dialog v-model="operationInfoDialog">
+    <v-card>
+      <v-card-text>
+        {{ operationInfo }}
+      </v-card-text>
+      <v-card-actions>
+        <v-btn @click="operationInfoDialog = false">Закрыть</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
 <style scoped>
 .status {
