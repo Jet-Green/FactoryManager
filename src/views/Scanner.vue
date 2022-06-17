@@ -61,7 +61,7 @@ function goBack() {
 }
 </script>
 <template>
-  <div style="height: 100%; background-color: grey">
+  <div style="height: 100%;">
     <v-btn @click="goBack()" icon="mdi-arrow-left" size="x-small" class="ma-2"></v-btn>
     <div id="reader" height="100%"></div>
   </div>
