@@ -23,6 +23,8 @@ const treeConfig = reactive({
 let operationInfoDialog = ref(false)
 let operationInfo = ref({})
 
+let statusColor = data[0]['obj']["operation.status_color"]
+
 let orderInfo = []
 let orderInfoTree = ref({
   "operation.designation": null,
@@ -66,6 +68,10 @@ onMounted(() => {
       "operation.act.status.text": data[i].obj["operation.act.status.text"],
       "operation.operation": data[i].obj["operation.operation"],
       "operation.person_end": data[i].obj['operation.person_end'],
+      "operation.person_start": data[i].obj['operation.person_start'],
+      "operation.act.last_logoff_ts": data[i].obj['operation.act.last_logoff_ts'],
+      "operation.act.scrap.primary": data[i].obj['operation.act.scrap.primary'],
+      "operation.act.workplace": data[i].obj['operation.act.workplace'],
       id: i + 1,
       children: null,
       parentId: i
@@ -81,7 +87,7 @@ function goBack() {
 }
 </script>
 <template>
-  <div class="status">
+  <div :style="{ 'background-color': statusColor }">
     <v-btn @click="goBack()" icon="mdi-arrow-left" size="x-small" class="ma-2"></v-btn>
     <span style="color: white">
       Заказ {{ orderNumber }}
@@ -115,9 +121,31 @@ function goBack() {
   </vue-tree>
   <v-dialog v-model="operationInfoDialog">
     <v-card>
-      <v-card-text>
-        {{ operationInfo }}
-      </v-card-text>
+      <div class="ma-2">
+        <p>
+          <b>
+            {{ operationInfo["operation.designation"] }}
+          </b>
+        </p>
+        <p>
+          {{ operationInfo["operation.act.status.text"] }}
+        </p>
+        <p>
+          {{ new Date(operationInfo["operation.act.last_logoff_ts"]).toLocaleString('ru') }}
+        </p>
+        <p>
+          Место: <b>{{ operationInfo["operation.act.workplace"] }}</b>
+        </p>
+        <p>
+          Брак: <b>{{ operationInfo["operation.act.scrap.primary"] }}</b>
+        </p>
+        <p>
+          {{ operationInfo["operation.person_start"] + ' -> ' + operationInfo["operation.person_end"] }}
+        </p>
+        <p>
+          {{ }}
+        </p>
+      </div>
       <v-card-actions>
         <v-btn @click="operationInfoDialog = false">Закрыть</v-btn>
       </v-card-actions>
