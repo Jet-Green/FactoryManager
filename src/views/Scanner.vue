@@ -17,7 +17,7 @@ onMounted(() => {
     .start(
       { facingMode: "environment" },
       {
-        fps: 18, // Optional, frame per seconds for qr code scanning
+        fps: 12, // Optional, frame per seconds for qr code scanning
         qrbox: { width: 250, height: 250 },
         // aspectRatio: 0.6,
       },
@@ -68,8 +68,9 @@ function goBack() {
 
   <v-dialog v-model="store.getWasShown">
     <v-card>
-      <v-card-text>Результат: <b>{{ store.getDecodedText }}</b>
-      </v-card-text>
+      <pre class="ma-2">
+      {{ store.getDecodedText }}
+      </pre>
       <v-card-actions>
         <v-btn @click="closeDialog()">закрыть</v-btn>
         <v-btn @click="goTo()">перейти</v-btn>
