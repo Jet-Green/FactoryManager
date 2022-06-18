@@ -93,11 +93,7 @@ function goBack() {
       Заказ {{ orderNumber }}
     </span>
   </div>
-  <!-- <div>
-    {{ orderInfoTree }}
-  </div> -->
-  <v-btn @click="tree.zoomIn()" class="ma-2">+</v-btn>
-  <v-btn @click="tree.zoomOut()" class="ma-2">-</v-btn>
+
   <vue-tree style="height: 230vh; width: 100%; border: 1px solid gray" :dataset="orderInfoTree" :config="treeConfig"
     ref="tree" linkStyle="straight" :collapse-enabled="false">
     <template v-slot:node="{ node }">
@@ -119,6 +115,7 @@ function goBack() {
       </div>
     </template>
   </vue-tree>
+
   <v-dialog v-model="operationInfoDialog">
     <v-card>
       <div class="ma-2">
@@ -151,9 +148,31 @@ function goBack() {
       </v-card-actions>
     </v-card>
   </v-dialog>
+  <div class="functions-container">
+    <div class="d-flex flex-column mr-6 mb-4">
+      <v-btn @click="tree.zoomIn()" class="ma-2" rounded icon="mdi-plus"></v-btn>
+      <v-btn @click="tree.zoomOut()" class="ma-2" rounded icon="mdi-minus"></v-btn>
+      <a href="#">
+        <v-btn class="ma-2" rounded icon="mdi-arrow-up"></v-btn>
+      </a>
+    </div>
+  </div>
 </template>
 <style scoped>
-.status {
-  background-color: rgb(26, 184, 26);
+.functions-container {
+  position: fixed;
+  display: flex;
+  justify-content: flex-end;
+
+  bottom: 0;
+  left: 0;
+
+  z-index: 99;
+  width: 100%;
+}
+
+.functions-container>* {
+  max-width: 40px;
+  float: right;
 }
 </style>
