@@ -173,6 +173,5 @@ function goBack() {
 
 .functions-container>* {
   max-width: 40px;
-  float: right;
 }
 </style>
