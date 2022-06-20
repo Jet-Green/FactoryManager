@@ -98,7 +98,7 @@ onMounted(() => {
     )
     .then((response) => {
       filterOrderInfo(response.data.splice(1));
-    });
+    }).catch((err) => { alert(err); });
 });
 
 function goBack() {
