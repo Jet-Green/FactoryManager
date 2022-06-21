@@ -85,20 +85,27 @@ function filterOrderInfo(data) {
 
 onMounted(() => {
   axios
-    .post(`${__APIURL__}/data/U_Orders/operationList`, {
-      params: [{ acronym: "order.id", value: orderNumber, operator: "EQUAL" }],
-      requestId: 0,
-      returnAsObject: true,
-    },
+    .post(
+      __OPERATIONLIST__,
+      {
+        params: [
+          { acronym: "order.id", value: orderNumber, operator: "EQUAL" },
+        ],
+        requestId: 0,
+        returnAsObject: true,
+      },
       {
         headers: {
-          'Authorization': `Basic ${__USERNAME__}:${__PASSWD__}`
-        }
-      },
+          Authorization: `Basic ${__USERNAME__}:${__PASSWD__}`,
+        },
+      }
     )
     .then((response) => {
       filterOrderInfo(response.data.splice(1));
-    }).catch((err) => { alert(err); });
+    })
+    .catch((err) => {
+      alert(err);
+    });
 });
 
 function goBack() {
@@ -107,29 +114,42 @@ function goBack() {
 </script>
 <template>
   <div :style="{ 'background-color': statusColor }">
-    <v-btn @click="goBack()" icon="mdi-arrow-left" size="x-small" class="ma-2"></v-btn>
+    <v-btn
+      @click="goBack()"
+      icon="mdi-arrow-left"
+      size="x-small"
+      class="ma-2"
+    ></v-btn>
     <span style="color: white"> Заказ {{ orderNumber }} </span>
   </div>
 
-  <vue-tree style="height: 230vh; width: 100%; border: 1px solid gray" :dataset="orderInfoTree" :config="treeConfig"
-    ref="tree" linkStyle="straight" :collapse-enabled="false">
+  <vue-tree
+    style="height: 230vh; width: 100%; border: 1px solid gray"
+    :dataset="orderInfoTree"
+    :config="treeConfig"
+    ref="tree"
+    linkStyle="straight"
+    :collapse-enabled="false"
+  >
     <template v-slot:node="{ node }">
       <div class="rich-media-node" @click="openOperationInfoDialog(node)">
         <div>
           <span style="font-weight: bold">{{
-              node["operation.designation"]
+            node["operation.designation"]
           }}</span>
         </div>
         <div class="d-flex justify-center" style="background-color: #0b9c47">
           {{ node["operation.operation"] }}
         </div>
-        <div style="
+        <div
+          style="
             display: flex;
             flex-direction: column;
             background-color: #327da8;
             color: white;
             padding: 8px;
-          ">
+          "
+        >
           <div>
             Статус: <b>{{ node["operation.act.status.text"] }}</b>
           </div>
@@ -154,9 +174,9 @@ function goBack() {
         </p>
         <p>
           {{
-              new Date(
-                operationInfo["operation.act.last_logoff_ts"]
-              ).toLocaleString("ru")
+            new Date(
+              operationInfo["operation.act.last_logoff_ts"]
+            ).toLocaleString("ru")
           }}
         </p>
         <p>
@@ -167,9 +187,9 @@ function goBack() {
         </p>
         <p>
           {{
-              operationInfo["operation.person_start"] +
-              " -> " +
-              operationInfo["operation.person_end"]
+            operationInfo["operation.person_start"] +
+            " -> " +
+            operationInfo["operation.person_end"]
           }}
         </p>
         <p>{{}}</p>
@@ -181,8 +201,18 @@ function goBack() {
   </v-dialog>
   <div class="functions-container">
     <div class="d-flex flex-column mr-6 mb-4">
-      <v-btn @click="tree.zoomIn()" class="ma-2" rounded icon="mdi-plus"></v-btn>
-      <v-btn @click="tree.zoomOut()" class="ma-2" rounded icon="mdi-minus"></v-btn>
+      <v-btn
+        @click="tree.zoomIn()"
+        class="ma-2"
+        rounded
+        icon="mdi-plus"
+      ></v-btn>
+      <v-btn
+        @click="tree.zoomOut()"
+        class="ma-2"
+        rounded
+        icon="mdi-minus"
+      ></v-btn>
       <a href="#">
         <v-btn class="ma-2" rounded icon="mdi-arrow-up"></v-btn>
       </a>
@@ -202,7 +232,7 @@ function goBack() {
   width: 100%;
 }
 
-.functions-container>* {
+.functions-container > * {
   max-width: 40px;
 }
 </style>
