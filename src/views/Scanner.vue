@@ -36,10 +36,38 @@ onMounted(() => {
     .catch((err) => {
       console.log(err);
     });
+  const html5QrCodeForFiles = new Html5Qrcode(/* element id */ "reader-for-files");
+  const fileinput = document.getElementById('qr-input-file');
+  fileinput.addEventListener('change', e => {
+    if (e.target.files.length == 0) {
+      // No file selected, ignore 
+      return;
+    }
+
+    const imageFile = e.target.files[0];
+    // Scan QR Code
+    html5QrCodeForFiles.scanFile(imageFile, true)
+      .then(decodedText => {
+        store.setDecodedText(decodedText);
+        let newVersion = /[a-z]{1}\d{2}-\d{4}-.{3}/i
+        let oldVersion = /[a-z]{1}-\d{2}-\d{2}-.{4}/i
+        let oldVersionMatchedOrder = decodedText.match(oldVersion)
+        let newVersionMatchedOrder = decodedText.match(newVersion)
+
+        orderNumber = oldVersionMatchedOrder ? oldVersionMatchedOrder[0] : newVersionMatchedOrder[0]
+        console.log(orderNumber);
+      })
+      .catch(err => {
+        // failure, handle it.
+        alert(`Ошибка: ${err}`)
+      });
+  });
+
 });
 
+
 store.$onAction(({ name, store }) => {
-  if (name === "setDecodedText" && store.decodedText != "") {
+  if (name === "setDecodedText") {
     store.setWasShown(true);
   }
 });
@@ -64,6 +92,8 @@ function goBack() {
   <div style="height: 100%;">
     <v-btn @click="goBack()" icon="mdi-arrow-left" size="x-small" class="ma-2"></v-btn>
     <div id="reader" height="100%"></div>
+    <div id="reader-for-files" style="display: hidden"></div>
+    <input type="file" id="qr-input-file" accept="image/*" class="ma-2">
   </div>
 
   <v-dialog v-model="store.getWasShown">
